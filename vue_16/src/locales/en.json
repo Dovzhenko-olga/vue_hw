@@ -1,0 +1,38 @@
+{
+  "menu": {
+    "home": "Home",
+    "contacts": "Contacts",
+    "headTitle": "Laptops",
+    "filter": "Filters",
+    "sellers": "Sellers",
+    "brands": "Brands"
+  },
+  "actionTitles": {
+    "loginTitle": "Login to use services",
+    "login": "Login",
+    "logout": "Logout",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "add": "Add product",
+    "search": "Search",
+    "clear": "Clear filter"
+  },
+  "product": {
+    "brand": "Brand",
+    "seller": "Seller",
+    "description": "Description",
+    "price": "Price",
+    "image": "Image"
+  },
+  "placeholders": {
+    "brand": "Choose brand",
+    "seller": "Choose seller",
+    "description": "Description",
+    "price": "Price",
+    "image": "Image link"
+  },
+  "about": {
+    "aboutTitle": "This is an about page"
+  }
+}
