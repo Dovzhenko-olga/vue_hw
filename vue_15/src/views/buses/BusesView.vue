@@ -7,7 +7,7 @@
       </div>
       <div>
         <v-btn density="compact" icon="mdi-pencil" @click="editItem(item.id)" class="btn-icon"></v-btn>
-        <v-btn density="compact" icon="mdi-delete" @click="deleteItem(item.id)" class="btn-icon"></v-btn>
+        <v-btn density="compact" icon="mdi-delete" @click="onDelete(item.id)" class="btn-icon"></v-btn>
       </div>
     </div>
     <hr />
@@ -26,21 +26,38 @@ import { mapGetters, mapActions } from 'vuex'
   export default {
     name: "BusesView",
     computed: {
-  ...mapGetters('buses', ['getItemsList']),
-  },
-  methods: {
-    ...mapActions('buses', [
-      'loadList',
-      'deleteItem',
-      ]),
-    editItem(id){
-      this.$router.push({
-        name: 'bus-edit',
-        params: {id}
-      })
-    }
-  },
+      ...mapGetters('drivers', { driverById: 'getItemById', driversList:'getItemsList'}),
+    ...mapGetters('buses', ['getItemsList']),
+    },
+    methods: {
+      ...mapActions('drivers', { loadDriversList: 'loadList', updateDriver:'updateItem' }),
+      ...mapActions('buses', [
+        'loadList',
+        'deleteItem',
+        ]),
+      editItem(id){
+        this.$router.push({
+          name: 'bus-edit',
+          params: {id}
+        })
+      },
+      onDelete(id){
+         const driversInWorkIds = this.driversList.filter(driver => driver.busId === id).map(driver =>driver.id)
+         if(driversInWorkIds.length){
+          for( let i=0;i<driversInWorkIds.length;i++){
+            const newDriverData = {
+                ...this.driverById(driversInWorkIds[i]),
+                busId : null,
+              }
+            this.updateDriver({ itemId: driversInWorkIds[i], data: newDriverData } )
+          }
+        this.deleteItem(id)
+         }
+        
+      }
+    },
   created() {
+    this.loadDriversList()
     this.loadList()
   },
   }
